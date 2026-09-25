@@ -221,8 +221,43 @@ for i, (nombre, _, _, meta) in enumerate(LIMITES):
 Límite              Meta    Original    Ajustado         E96   error E96
 Graves               300      589,63      300,34      297,26   -0,9 %
 Medios inferior      500      530,52      500,01      503,65   +0,7 %
-Medios superior     4000    4 420,85    4 000,81    3 978,89   -0,5 %
-Agudos              5000    4 811,81    4 987,81    5 023,88   +0,5 %
+Medios superior    4.000    4.420,85    4.000,81    3.978,89   -0,5 %
+Agudos             5.000    4.811,81    4.987,81    5.023,88   +0,5 %
 ```
 
 Los valores ajustados alcanzan las metas con un error inferior al 0,3 %. Con resistencias E96 el error máximo es del 1 %, del mismo orden que la tolerancia de esos componentes.
+
+## Respuesta de las ramas del ecualizador
+
+**Entrada [6]:**
+
+```python
+a = sim["02_ajustado"]["ac"]
+f = a["frequency"]
+db = lambda h: 20 * np.log10(np.abs(h))
+ramas = [("Graves", a["graves"] / a["pre"]), ("Medios", a["medios"] / a["pre"]),
+         ("Agudos", a["agudos"] / a["pre"])]
+
+fig, ax = plt.subplots(figsize=(9, 4.6))
+for (nombre, h), color in zip(ramas, SERIES):
+    ax.semilogx(f, db(h), color=color, label=nombre)
+ax.axhline(-3, color=TINTA_2, lw=1, ls=(0, (4, 3)))
+ax.text(11, -2.2, "−3 dB", color=TINTA_2, fontsize=9)
+for (nombre, h), color, x in zip(ramas, SERIES, (35, 1400, 30000)):
+    ax.text(x, db(h)[np.argmin(abs(f - x))] + 1.5, nombre, color=TINTA, fontsize=10,
+            ha="center", fontweight="bold")
+for fc_sim in tabla["Ajustado"]:
+    ax.axvline(fc_sim, color=REJILLA, lw=1.2, zorder=0)
+ax.set(xlim=(10, 1e5), ylim=(-40, 5), xlabel="Frecuencia (Hz)", ylabel="Ganancia (dB)",
+       title="Ramas del ecualizador respecto de la salida del preamplificador")
+ax.legend(loc="lower center", ncol=3)
+mostrar(fig, "g01_respuesta_ramas")
+```
+
+**Salida [6]:**
+
+![respuesta ramas](recortes/g01_respuesta_ramas.png)
+
+*Figura 7. Respuesta AC de las tres ramas (Ngspice). Las líneas verticales marcan los cuatro cortes simulados.*
+
+La banda media es ancha: su máximo, −1,0 dB cerca de 1,4 kHz, queda por debajo de 0 dB porque sus dos etapas ya atenúan un poco en el centro. Graves y medios se cruzan en 380 Hz a −4,2 dB, y medios y agudos en 4,4 kHz a −3,5 dB. La suma de las tres ramas produce la respuesta global de la sección 5.4.
