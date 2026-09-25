@@ -151,3 +151,15 @@ for i, (clave, titulo) in enumerate(etapas.items(), start=2):
 ![sumador](recortes/c06_sumador.png)
 
 *Figuras 2 a 6. Preamplificador, rama de graves, rama de medios, rama de agudos y sumador inversor, en ese orden.*
+
+## Modelo analítico
+
+**Preamplificador.** Con realimentación negativa, la ganancia no inversora es $K=1+R_F/R_G=1+500/330\approx2{,}515$.
+
+**Filtros.** Cada red RC tiene su corte en $f_c=\dfrac{1}{2\pi RC}$. Con el buffer de ganancia $K$:
+
+$$H_{PB}(s)=\frac{K}{1+sRC},\qquad H_{PA}(s)=K\,\frac{sRC}{1+sRC},\qquad H_M(s)=H_{PA}(s)\,H_{PB}(s).$$
+
+**Sumador.** Con resistencias de entrada $R_i$ y realimentación $R_F$:
+
+$$V_o=-R_F\left(\frac{V_G}{R_{SB}}+\frac{V_M}{R_{SM}}+\frac{V_A}{R_{SA}}\right).$$
