@@ -191,7 +191,7 @@ Medios superior    4.000    4.420,97    4.000,88    3.978,87
 Agudos             5.000    4.822,88    5.000,16    5.036,55
 ```
 
-### Frecuencias de corte simuladas
+## Frecuencias de corte simuladas
 
 Cada corte se mide a −3 dB de la ganancia de paso de su etapa: graves y agudos respecto del preamplificador, el límite inferior de medios bajos y el superior con medios altos.
 
