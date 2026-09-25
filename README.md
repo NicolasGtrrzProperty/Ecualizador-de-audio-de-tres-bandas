@@ -41,7 +41,7 @@ Emplea tres pasos en orden:
 2. Simularlos con el netlister de Qucs-S y Ngspice.
 3. Leer los resultados.
 
-La figura y la simulación proceden exactamente del mismo circuito.
+Las figuras y la simulación proceden exactamente del mismo circuito.
 
 ```python
 import sys, warnings
