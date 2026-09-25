@@ -166,7 +166,7 @@ $$V_o=-R_F\left(\frac{V_G}{R_{SB}}+\frac{V_M}{R_{SM}}+\frac{V_A}{R_{SA}}\right).
 
 La celda calcula los cortes teóricos de las tres variantes de componentes:
 
-**Entrada [3]:**
+**Entrada [4]:**
 
 ```python
 LIMITES = [("Graves", "R_B", "C_B", 300), ("Medios inferior", "R_M1", "C_M1", 500),
@@ -181,7 +181,7 @@ for nombre, r, c, meta in LIMITES:
     print(f"{nombre:<16}{meta:>8}" + "".join(f"{es(fc(rc, r, c)):>12}" for rc in DISENOS.values()))
 ```
 
-**Salida [3]:**
+**Salida [4]:**
 
 ```text
 Límite              Meta    Original    Ajustado         E96   (Hz, analítico)
