@@ -43,6 +43,8 @@ Emplea tres pasos en orden:
 
 Las figuras y la simulación proceden exactamente del mismo circuito.
 
+**Entrada [1]:**
+
 ```python
 import sys, warnings
 from pathlib import Path
@@ -79,6 +81,20 @@ def es(x, dec=2):
     texto = f"{x:,.{dec}f}".replace(",", " ").replace(".", ",")
     return texto
 
-print("Qucs-S :", q.QUCS.exists(), "·", q.QUCS)
-print("Ngspice:", q.NGSPICE.exists(), "·", q.NGSPICE)
+rutas = q.generar_todos(CARPETA)
+print(f"{'Archivo':<24} {'R graves':>9} {'R medios inf.':>13} {'R medios sup.':>13} {'R agudos':>9}  Sumador (G, M, A)")
+for ruta, (nombre, (rc, suma, desc)) in zip(rutas, q.VARIANTES.items()):
+    print(f"{ruta.name:<24} {rc['R_B']:>9} {rc['R_M1']:>13} {rc['R_M2']:>13} {rc['R_A']:>9}  {', '.join(suma)}")
+```
+
+**Salida [1]:**
+
+```text
+Archivo                   R graves R medios inf. R medios sup.  R agudos  Sumador (G, M, A)
+01_original.sch                270           150            18        33  10k, 10k, 10k
+02_ajustado.sch              530.5        159.15         19.89     31.83  10k, 10k, 10k
+03_comercial_E96.sch           536           158            20      31.6  10k, 10k, 10k
+04_realce_graves.sch         530.5        159.15         19.89     31.83  5k, 20k, 20k
+05_realce_medios.sch         530.5        159.15         19.89     31.83  20k, 5k, 20k
+06_realce_agudos.sch         530.5        159.15         19.89     31.83  20k, 20k, 5k
 ```
