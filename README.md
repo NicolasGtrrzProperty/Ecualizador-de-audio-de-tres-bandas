@@ -260,4 +260,4 @@ mostrar(fig, "g01_respuesta_ramas")
 
 *Figura 7. Respuesta AC de las tres ramas (Ngspice). Las líneas verticales marcan los cuatro cortes simulados.*
 
-La banda media es ancha: su máximo, −1,0 dB cerca de 1,4 kHz, queda por debajo de 0 dB porque sus dos etapas ya atenúan un poco en el centro. Graves y medios se cruzan en 380 Hz a −4,2 dB, y medios y agudos en 4,4 kHz a −3,5 dB. La suma de las tres ramas produce la respuesta global de la sección 5.4.
+La banda media es ancha: su máximo, −1,0 dB cerca de 1,4 kHz, queda por debajo de 0 dB porque sus dos etapas ya atenúan un poco en el centro. Graves y medios se cruzan en 380 Hz a −4,2 dB, y medios y agudos en 4,4 kHz a −3,5 dB.
