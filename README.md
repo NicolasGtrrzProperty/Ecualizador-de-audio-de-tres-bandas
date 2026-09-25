@@ -487,7 +487,7 @@ python -m manim -qh animaciones_manim.py BarridoBandas CorreccionGraves Controle
 
 1. El circuito permite variar por separado el peso de graves, medios y agudos. Cada realce eleva su banda entre 5 y 6 dB respecto del ajuste plano.
 2. El filtro de graves del documento original (270 Ω, 1 µF) corta en **589,6 Hz**. Para cumplir 300 Hz hacen falta **530,5 Ω**, o **536 Ω** en la serie E96.
-3. Con resistencias E96 todos los cortes quedan a menos del 1 % de su meta; con tolerancias reales, la dispersión esperada ronda el ±5 %, dominada por los condensadores.
+3. Con resistencias E96 todos los cortes quedan a menos del 1 % de su meta con tolerancias reales, la dispersión esperada ronda el ±5 %, dominada por los condensadores.
 4. El modelo analítico en Python y la simulación de Qucs-S/Ngspice difieren en menos de 0,001 dB, lo que valida tanto las ecuaciones como los esquemas.
 
 **Alcance.** Los resultados proceden de modelos idealizados. No incluyen el ancho de banda finito de un operacional real, ruido, distorsión, la impedancia de carga ni la respuesta de un altavoz. Para construir el equipo habría que elegir un operacional concreto (por ejemplo, de la familia TL07x), alimentar el circuito con ±15 V y medir otra vez los cortes. Además, las resistencias de 20–30 Ω de las redes de medios y agudos cargan mucho la etapa anterior; en un montaje real convendría escalar las impedancias, subiendo R y bajando C en la misma proporción.
