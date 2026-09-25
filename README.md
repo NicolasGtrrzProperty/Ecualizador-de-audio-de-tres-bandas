@@ -140,14 +140,14 @@ for i, (clave, titulo) in enumerate(etapas.items(), start=2):
 
 **Salida [3]:**
 
-![preamplificador](Trabajo_de_Electronicos_V3_assets/c02_preamplificador.png)
+![preamplificador](recortes/c02_preamplificador.png)
 
-![graves](Trabajo_de_Electronicos_V3_assets/c03_graves.png)
+![graves](recortes/c03_graves.png)
 
-![medios](Trabajo_de_Electronicos_V3_assets/c04_medios.png)
+![medios](recortes/c04_medios.png)
 
-![agudos](Trabajo_de_Electronicos_V3_assets/c05_agudos.png)
+![agudos](recortes/c05_agudos.png)
 
-![sumador](Trabajo_de_Electronicos_V3_assets/c06_sumador.png)
+![sumador](recortes/c06_sumador.png)
 
 *Figuras 2 a 6. Preamplificador, rama de graves, rama de medios, rama de agudos y sumador inversor, en ese orden.*
