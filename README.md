@@ -114,6 +114,6 @@ mostrar(fig, "c01_ecualizador_completo", dpi=120)
 
 ![ecualizador completo](recortes/c01_ecualizador_completo.png)
 
-*Figura 1. Esquema Qucs-S completo con los valores ajustados y controles iguales. Abajo, los bloques de simulación AC (10 Hz–100 kHz, 401 puntos) y transitoria (10 ms).*
+*Figura 1. Esquema Qucs-S completo con los valores ajustados de los bloques de simulación AC (10 Hz–100 kHz, 401 puntos) y transitoria (10 ms).*
 
-La salida del preamplificador (`pre`) alimenta un bus común a las tres ramas. Cada red RC excita la entrada no inversora de un operacional con $R_G=1\,\mathrm{M}\Omega$ y $R_F=100\,\Omega$ ($K\approx1{,}0001$), que la aísla de la carga. Las salidas llegan al nodo de suma del inversor a través de $R_{SB}$, $R_{SM}$ y $R_{SA}$, que son los controles de banda.
+La salida del preamplificador, alimenta un bus común a las tres ramas. Cada red RC excita la entrada no inversora de un amplificador operacional con $R_G=1\,\mathrm{M}\Omega$ y $R_F=100\,\Omega$ ($K\approx1{,}0001$), que la aísla de la carga. Las salidas llegan al nodo de suma del inversor a través de $R_{SB}$, $R_{SM}$ y $R_{SA}$, que son los controles de banda.
