@@ -57,7 +57,6 @@ sys.path.insert(0, str(CARPETA))
 import qucs_v3 as q
 
 warnings.filterwarnings("ignore", category=UserWarning)
-# Paleta categórica en orden fijo: azul, naranja, aqua, amarillo.
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
 TINTA, TINTA_2, REJILLA = "#0b0b0b", "#52514e", "#e4e3df"
 plt.rcParams.update({
@@ -77,7 +76,6 @@ def mostrar(fig, nombre, dpi=130):
     display(Image(filename=str(ruta)), metadata={"archivo": ruta.as_posix()})
 
 def es(x, dec=2):
-    # Formato numérico español: coma decimal y espacio de miles.
     texto = f"{x:,.{dec}f}".replace(",", " ").replace(".", ",")
     return texto
 
