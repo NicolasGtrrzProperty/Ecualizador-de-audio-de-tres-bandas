@@ -112,7 +112,7 @@ mostrar(fig, "c01_ecualizador_completo", dpi=120)
 
 **Salida [2]:**
 
-![ecualizador completo](esquemas/c01_ecualizador_completo.png)
+![ecualizador completo](recortes/c01_ecualizador_completo.png)
 
 *Figura 1. Esquema Qucs-S completo con los valores ajustados y controles iguales. Abajo, los bloques de simulación AC (10 Hz–100 kHz, 401 puntos) y transitoria (10 ms).*
 
