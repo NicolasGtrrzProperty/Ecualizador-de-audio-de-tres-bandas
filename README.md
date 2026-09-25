@@ -87,6 +87,8 @@ for ruta, (nombre, (rc, suma, desc)) in zip(rutas, q.VARIANTES.items()):
     print(f"{ruta.name:<24} {rc['R_B']:>9} {rc['R_M1']:>13} {rc['R_M2']:>13} {rc['R_A']:>9}  {', '.join(suma)}")
 ```
 
+Se generan seis variantes del mismo circuito:
+
 **Salida [1]:**
 
 ```text
