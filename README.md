@@ -358,3 +358,42 @@ Amplitud de salida en régimen: 2,45 V (ganancia 7,78 dB)
 ![transitorio](recortes/g04_transitorio.png)
 
 *Figura 10. La salida está invertida por el sumador y su amplitud queda lejos del límite de ±15 V del operacional.*
+
+## Contraste entre Python y Ngspice
+
+El modelo analítico se evalúa en las mismas 401 frecuencias que la simulación. Si ambos coinciden, la netlist generada por Qucs-S representa el circuito previsto.
+
+**Entrada [10]:**
+
+```python
+K_PRE, K_BUF = 1 + 500 / 330, 1 + 100 / 1e6
+
+def modelo(f, rc, suma):
+    s = 2j * np.pi * f
+    pb = lambda r, c: K_BUF / (1 + s * q.valor(rc[r]) * q.valor(rc[c]))
+    pa = lambda r, c: K_BUF * s * q.valor(rc[r]) * q.valor(rc[c]) / (1 + s * q.valor(rc[r]) * q.valor(rc[c]))
+    ramas = (pb("R_B", "C_B"), pa("R_M1", "C_M1") * pb("R_M2", "C_M2"), pa("R_A", "C_A"))
+    return -K_PRE * sum(10e3 / q.valor(r) * h for r, h in zip(suma, ramas))
+
+print(f"{'Variante':<20}{'error máx. (dB)':>16}{'error máx. fase (°)':>20}")
+for nombre, (rc, suma, _) in q.VARIANTES.items():
+    b = sim[nombre]["ac"]
+    h_py, h_sp = modelo(b["frequency"], rc, suma), b["salida"] / b["entrada"]
+    e_mag = np.max(np.abs(db(h_py) - db(h_sp)))
+    e_fase = np.max(np.abs(np.angle(h_py / h_sp, deg=True)))
+    print(f"{nombre:<20}{es(e_mag, 4):>16}{es(e_fase, 4):>20}")
+```
+
+**Salida [10]:**
+
+```text
+Variante             error máx. (dB) error máx. fase (°)
+01_original                   0,0001              0,0000
+02_ajustado                   0,0001              0,0000
+03_comercial_E96              0,0001              0,0000
+04_realce_graves              0,0001              0,0000
+05_realce_medios              0,0001              0,0000
+06_realce_agudos              0,0001              0,0000
+```
+
+La diferencia no supera 0,0001 dB en todo el barrido ni en ninguna de las seis variantes. Ese residuo procede de la ganancia finita ($10^6$) del operacional de Qucs-S. Ambos modelos describen, por tanto, el mismo circuito.
