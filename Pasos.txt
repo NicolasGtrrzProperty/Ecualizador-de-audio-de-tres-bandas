@@ -1,0 +1,33 @@
+======================================================================
+PASO 1. Instalar Python
+======================================================================
+Python 3.12.10 https://www.python.org/downloads/
+
+Comprobar la versión en el terminal con:
+
+    python --version
+
+======================================================================
+PASO 2. Instalar Qucs-S
+======================================================================
+Qucs-S: Quite universal circuit simulator with SPICE
+
+Qucs-S 26.1.1 https://ra3xdh.github.io/
+
+* Este incluye Ngspice 46.
+
+======================================================================
+PASO 3. Instalar paquetes de Python
+======================================================================
+En PowerShell ejeculat:
+
+    pip install numpy matplotlib ipykernel nbformat nbclient manin==0.21.0
+
+numpy 2.5.3
+matplotlib 3.11.2
+ipykernel 7.3.0
+nbformat 5.11.1
+nbclient 0.11.0
+manin 0.21.0
+
+Nota: No hace falta LaTeX, FFmpeg (usa PyAV).
