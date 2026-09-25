@@ -397,3 +397,47 @@ Variante             error máx. (dB) error máx. fase (°)
 ```
 
 La diferencia no supera 0,0001 dB en todo el barrido ni en ninguna de las seis variantes. Ese residuo procede de la ganancia finita ($10^6$) del operacional de Qucs-S. Ambos modelos describen, por tanto, el mismo circuito.
+
+## Tolerancias: análisis de Monte Carlo
+
+Los componentes reales se desvían de su valor nominal. Se sortean 5.000 circuitos con las resistencias E96 (±1 %) y condensadores de ±5 %, con distribución uniforme, y se calcula el corte de cada filtro.
+
+**Entrada [11]:**
+
+```python
+rng = np.random.default_rng(2026)
+N = 5000
+fig, ejes = plt.subplots(1, 4, figsize=(12, 3.2), sharey=True)
+print(f"{'Límite':<16}{'nominal':>10}{'P5':>10}{'P95':>10}   (Hz)")
+for ax, (nombre, r, c, meta) in zip(ejes, LIMITES):
+    R = q.valor(q.COMERCIAL[r]) * rng.uniform(0.99, 1.01, N)
+    C = q.valor(q.COMERCIAL[c]) * rng.uniform(0.95, 1.05, N)
+    cortes_mc = 1 / (2 * np.pi * R * C)
+    ax.hist(cortes_mc, bins=40, color=SERIES[0], edgecolor="#fcfcfb", linewidth=0.6)
+    ax.axvline(meta, color=SERIES[1], lw=2)
+    ax.set_title(nombre, fontsize=10)
+    ax.set_xlabel("Corte (Hz)")
+    p5, p95 = np.percentile(cortes_mc, [5, 95])
+    print(f"{nombre:<16}{es(fc(q.COMERCIAL, r, c), 0):>10}{es(p5, 0):>10}{es(p95, 0):>10}")
+ejes[0].set_ylabel("Circuitos")
+ejes[0].text(0.03, 0.95, "— meta", color=SERIES[1], transform=ejes[0].transAxes, fontsize=9, va="top")
+fig.suptitle("Dispersión de los cortes con R ±1 % y C ±5 %", x=0.01, ha="left", fontweight="bold")
+fig.tight_layout()
+mostrar(fig, "g05_montecarlo")
+```
+
+**Salida [11]:**
+
+```text
+Límite             nominal        P5       P95   (Hz)
+Graves                 297       284       311
+Medios inferior        504       482       528
+Medios superior      3 979     3 803     4 169
+Agudos               5 037     4 819     5 281
+```
+
+![montecarlo](recortes/g05_montecarlo.png)
+
+*Figura 11. Distribución de los cortes en 5 000 circuitos simulados. La línea naranja marca la meta.*
+
+En cada filtro, el 90 % de los circuitos queda entre −5,3 % y +5,6 % de la meta. La tolerancia de los condensadores domina la dispersión: pasar a condensadores de ±1 % tendría más efecto que afinar las resistencias.
