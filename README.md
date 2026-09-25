@@ -330,3 +330,31 @@ Realce de agudos          1,50      4,14     13,06
 *Figura 9. Los cuatro ajustes del sumador simulados en Ngspice.*
 
 Con controles iguales la respuesta varía entre 6,0 y 8,1 dB. La depresión de unos 2 dB cerca de 340 Hz aparece donde graves y medios se cruzan con fases distintas, por lo que no se suman en módulo; cerca de 5,8 kHz ocurre lo mismo con medios y agudos, pero la caída es menor (7,4 dB). Cada realce eleva su banda entre 5,3 y 6,0 dB por encima del ajuste plano y atenúa las otras dos.
+
+## Respuesta temporal
+
+**Entrada [9]:**
+
+```python
+t = sim["02_ajustado"]["tr"]
+fig, ax = plt.subplots(figsize=(9, 3.8))
+ax.plot(t["time"] * 1e3, t["entrada"], color=SERIES[0], label="entrada")
+ax.plot(t["time"] * 1e3, t["salida"], color=SERIES[1], label="salida")
+ax.set(xlim=(0, 5), xlabel="Tiempo (ms)", ylabel="Tensión (V)",
+       title="Seno de 1 V a 1 kHz, controles iguales")
+ax.legend(loc="upper right", ncol=2)
+mostrar(fig, "g04_transitorio")
+estable = t["time"] > 5e-3
+print(f"Amplitud de salida en régimen: {es(np.max(np.abs(t['salida'][estable])))} V "
+      f"(ganancia {es(20*np.log10(np.max(np.abs(t['salida'][estable]))))} dB)")
+```
+
+**Salida [9]:**
+
+```text
+Amplitud de salida en régimen: 2,45 V (ganancia 7,78 dB)
+```
+
+![transitorio](recortes/g04_transitorio.png)
+
+*Figura 10. La salida está invertida por el sumador y su amplitud queda lejos del límite de ±15 V del operacional.*
