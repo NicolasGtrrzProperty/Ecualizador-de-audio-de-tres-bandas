@@ -1,10 +1,8 @@
 # Ecualizador de audio de tres bandas
 
-<p style="text-align: justify;">
 Repositorio para ilustrar un ecualizador de tres bandas (Grave, medio y agudo) para una señal de audio, mediante circuitos activos RC y amplificadores operacionales.
 
 Los circuitos electrónicos se generan con esquemas de **Qucs-S**, se simulan con **Ngspice**, se dibujan con **Python** y se modelan con **Manim**.
-</p>
 
 ## Resumen
 
@@ -35,4 +33,13 @@ Se diseño un ecualizador activo que comprende señales con frecuencias de **300
   </table>
 </div>
 
-## Propósito
+## Configuración de circuitos
+
+El módulo reúne tres tareas que el notebook utiliza en orden:
+
+1. Generar esquemas editables de Qucs-S (.sch) con una disposición limpia.
+2. Dibujar esos mismos archivos .sch con matplotlib, imitando el estilo de Qucs-S.
+3. Simularlos con el netlister de Qucs-S y Ngspice, y leer los resultados.
+
+Los dibujos se construyen leyendo el archivo .sch generado; así, la figura y la
+simulación proceden exactamente del mismo circuito.
