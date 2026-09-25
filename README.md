@@ -291,3 +291,42 @@ mostrar(fig, "g02_correccion_graves")
 ![correccion graves](recortes/g02_correccion_graves.png)
 
 *Figura 8. Con 270 Ω el corte está en 589,6 Hz. Las curvas de 530,5 Ω y 536 Ω casi se superponen, porque sus cortes difieren sólo en 1 %.*
+
+## Efecto de los controles
+
+Para destacar una banda se reduce su resistencia de entrada del sumador a **5 kΩ** (peso $R_F/R_i=2$) y se elevan las otras a **20 kΩ** (peso 0,5). Esta respuesta se mide de la entrada a la salida, así que incluye la ganancia del preamplificador.
+
+**Entrada [8]:**
+
+```python
+ajustes = [("Controles iguales", "02_ajustado"), ("Realce de graves", "04_realce_graves"),
+           ("Realce de medios", "05_realce_medios"), ("Realce de agudos", "06_realce_agudos")]
+fig, ax = plt.subplots(figsize=(9, 4.8))
+print(f"{'Ajuste':<20}{'100 Hz':>10}{'1 kHz':>10}{'10 kHz':>10}   (dB)")
+for (nombre, clave), color in zip(ajustes, SERIES):
+    b = sim[clave]["ac"]
+    g = db(b["salida"] / b["entrada"])
+    ax.semilogx(b["frequency"], g, color=color, label=nombre)
+    valores = [g[np.argmin(abs(b["frequency"] - x))] for x in (100, 1000, 10000)]
+    print(f"{nombre:<20}" + "".join(f"{es(v):>10}" for v in valores))
+ax.set(xlim=(10, 1e5), ylim=(-3, 16), xlabel="Frecuencia (Hz)", ylabel="Ganancia (dB)",
+       title="Respuesta del ecualizador completo, de la entrada a la salida")
+ax.legend(loc="lower center", ncol=4, fontsize=9)
+mostrar(fig, "g03_controles")
+```
+
+**Salida [8]:**
+
+```text
+Ajuste                  100 Hz     1 kHz    10 kHz   (dB)
+Controles iguales         7,55      7,78      7,62
+Realce de graves         13,53      5,00      1,64
+Realce de medios          3,41     13,05      6,73
+Realce de agudos          1,50      4,14     13,06
+```
+
+![controles](recortes/g03_controles.png)
+
+*Figura 9. Los cuatro ajustes del sumador simulados en Ngspice.*
+
+Con controles iguales la respuesta varía entre 6,0 y 8,1 dB. La depresión de unos 2 dB cerca de 340 Hz aparece donde graves y medios se cruzan con fases distintas, por lo que no se suman en módulo; cerca de 5,8 kHz ocurre lo mismo con medios y agudos, pero la caída es menor (7,4 dB). Cada realce eleva su banda entre 5,3 y 6,0 dB por encima del ajuste plano y atenúa las otras dos.
