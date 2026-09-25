@@ -100,3 +100,20 @@ Archivo                   R graves R medios inf. R medios sup.  R agudos  Sumado
 05_realce_medios.sch         530.5        159.15         19.89     31.83  20k, 5k, 20k
 06_realce_agudos.sch         530.5        159.15         19.89     31.83  20k, 20k, 5k
 ```
+
+### Circuito completo
+
+**Entrada [2]:**
+
+```python
+fig = q.dibujar_sch(CARPETA / "02_ajustado.sch", escala=0.95)
+mostrar(fig, "c01_ecualizador_completo", dpi=120)
+```
+
+**Salida [2]:**
+
+![ecualizador completo](Trabajo_de_Electronicos_V3_assets/c01_ecualizador_completo.png)
+
+*Figura 1. Esquema Qucs-S completo con los valores ajustados y controles iguales. Abajo, los bloques de simulación AC (10 Hz–100 kHz, 401 puntos) y transitoria (10 ms).*
+
+La salida del preamplificador (`pre`) alimenta un bus común a las tres ramas. Cada red RC excita la entrada no inversora de un operacional con $R_G=1\,\mathrm{M}\Omega$ y $R_F=100\,\Omega$ ($K\approx1{,}0001$), que la aísla de la carga. Las salidas llegan al nodo de suma del inversor a través de $R_{SB}$, $R_{SM}$ y $R_{SA}$, que son los controles de banda.
