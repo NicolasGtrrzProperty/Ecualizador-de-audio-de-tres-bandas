@@ -190,3 +190,39 @@ Medios inferior      500      530,52      500,02      503,65
 Medios superior    4.000    4.420,97    4.000,88    3.978,87
 Agudos             5.000    4.822,88    5.000,16    5.036,55
 ```
+
+### Frecuencias de corte simuladas
+
+Cada corte se mide a −3 dB de la ganancia de paso de su etapa: graves y agudos respecto del preamplificador, el límite inferior de medios bajos y el superior con medios altos.
+
+**Entrada [5]:**
+
+```python
+def cortes(a):
+    f = a["frequency"]
+    return [q.corte(f, a["graves"] / a["pre"], sube=False),
+            q.corte(f, a["medio_alto"] / a["pre"], sube=True),
+            q.corte(f, a["medios"] / a["medio_alto"], sube=False),
+            q.corte(f, a["agudos"] / a["pre"], sube=True)]
+
+tabla = {"Original": cortes(sim["01_original"]["ac"]),
+         "Ajustado": cortes(sim["02_ajustado"]["ac"]),
+         "E96": cortes(sim["03_comercial_E96"]["ac"])}
+print(f"{'Límite':<16}{'Meta':>8}" + "".join(f"{d:>12}" for d in tabla) + "   error E96")
+for i, (nombre, _, _, meta) in enumerate(LIMITES):
+    err = 100 * (tabla["E96"][i] / meta - 1)
+    print(f"{nombre:<16}{meta:>8}" + "".join(f"{es(v[i]):>12}" for v in tabla.values())
+          + f"   {err:+.1f} %".replace(".", ","))
+```
+
+**Salida [5]:**
+
+```text
+Límite              Meta    Original    Ajustado         E96   error E96
+Graves               300      589,63      300,34      297,26   -0,9 %
+Medios inferior      500      530,52      500,01      503,65   +0,7 %
+Medios superior     4000    4 420,85    4 000,81    3 978,89   -0,5 %
+Agudos              5000    4 811,81    4 987,81    5 023,88   +0,5 %
+```
+
+Los valores ajustados alcanzan las metas con un error inferior al 0,3 %. Con resistencias E96 el error máximo es del 1 %, del mismo orden que la tolerancia de esos componentes.
