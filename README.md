@@ -163,3 +163,30 @@ $$H_{PB}(s)=\frac{K}{1+sRC},\qquad H_{PA}(s)=K\,\frac{sRC}{1+sRC},\qquad H_M(s)=
 **Sumador.** Con resistencias de entrada $R_i$ y realimentación $R_F$:
 
 $$V_o=-R_F\left(\frac{V_G}{R_{SB}}+\frac{V_M}{R_{SM}}+\frac{V_A}{R_{SA}}\right).$$
+
+La celda calcula los cortes teóricos de las tres variantes de componentes:
+
+**Entrada [3]:**
+
+```python
+LIMITES = [("Graves", "R_B", "C_B", 300), ("Medios inferior", "R_M1", "C_M1", 500),
+           ("Medios superior", "R_M2", "C_M2", 4000), ("Agudos", "R_A", "C_A", 5000)]
+DISENOS = {"Original": q.ORIGINAL, "Ajustado": q.AJUSTADO, "E96": q.COMERCIAL}
+
+def fc(rc, r, c):
+    return 1 / (2 * np.pi * q.valor(rc[r]) * q.valor(rc[c]))
+
+print(f"{'Límite':<16}{'Meta':>8}" + "".join(f"{d:>12}" for d in DISENOS) + "   (Hz, analítico)")
+for nombre, r, c, meta in LIMITES:
+    print(f"{nombre:<16}{meta:>8}" + "".join(f"{es(fc(rc, r, c)):>12}" for rc in DISENOS.values()))
+```
+
+**Salida [3]:**
+
+```text
+Límite              Meta    Original    Ajustado         E96   (Hz, analítico)
+Graves               300      589,46      300,01      296,93
+Medios inferior      500      530,52      500,02      503,65
+Medios superior     4000    4 420,97    4 000,88    3 978,87
+Agudos              5000    4 822,88    5 000,16    5 036,55
+```
