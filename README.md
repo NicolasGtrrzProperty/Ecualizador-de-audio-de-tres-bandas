@@ -54,7 +54,7 @@ CARPETA = Path("Ecualizador_QucsS_V3").resolve()
 RECURSOS = Path("Trabajo_de_Electronicos_V3_assets")
 RECURSOS.mkdir(exist_ok=True)
 sys.path.insert(0, str(CARPETA))
-import qucs_v3 as q
+import qucs as q
 
 warnings.filterwarnings("ignore", category=UserWarning)
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
