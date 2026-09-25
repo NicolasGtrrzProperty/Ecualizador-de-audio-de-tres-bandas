@@ -8,10 +8,12 @@ Los circuitos electrónicos se generan con esquemas de **Qucs-S**, se simulan co
 
 Se diseño un ecualizador activo que comprende señales con frecuencias de **300 Hz** (límite superior de graves), **500 - 4.000 Hz** (medios) y **5.000 Hz** (límite inferior de agudos).
 
-        | Banda | Tipo de filtro | Frecuencias objetivo (−3 dB) |
-        |---|---|---: |
-        | Graves | Pasa bajos de primer orden | 300 Hz |
-        | Medios | Pasa altos + pasa bajos en cascada | 500 Hz y 4 000 Hz |
-        | Agudos | Pasa altos de primer orden | 5 000 Hz |
+<div align="center">
+| Banda | Tipo de filtro | Frecuencias objetivo (−3 dB) |
+| --- | --- | ---: |
+| Graves | Pasa bajos de primer orden | 300 Hz |
+| Medios | Pasa altos + pasa bajos en cascada | 500 Hz y 4 000 Hz |
+| Agudos | Pasa altos de primer orden | 5 000 Hz |
+</div>
 
 ## Propósito
