@@ -452,3 +452,29 @@ Los resultados de Ngspice se animaron con [Manim Community](https://www.manim.co
 | 2 | `CorreccionGraves` | $R_B$ crece de 270 Ω a 530,5 Ω y el corte baja de 589,6 Hz a 300 Hz; se superponen las curvas de Ngspice, incluida la E96. | 17 s |
 | 3 | `ControlesSumador` | La respuesta total cambia entre los cuatro ajustes, con barras que muestran el peso $10\,\mathrm{k}\Omega/R_i$ de cada banda. | 20 s |
 | 4 | `SenalTransitoria` | Un seno de 1 kHz recorre las etapas: entrada, preamplificador, tres ramas y salida invertida. | 14 s |
+
+▶ [Animación 1: barrido de frecuencia (MP4, 1080p60)](animaciones/m1_BarridoBandas.mp4)
+
+*Animación 1. Barrido de frecuencia sobre las tres ramas.*
+
+<video src="animaciones/m2_CorreccionGraves.mp4" poster="animaciones/m2_CorreccionGraves.png" controls loop muted playsinline width="100%" title="Animación 2: corrección del filtro de graves"></video>
+
+▶ [Animación 2: corrección del filtro de graves (MP4, 1080p60)](animaciones/m2_CorreccionGraves.mp4)
+
+*Animación 2. Desplazamiento del corte de graves al aumentar $R_B$.*
+
+<video src="animaciones/m3_ControlesSumador.mp4" poster="animaciones/m3_ControlesSumador.png" controls loop muted playsinline width="100%" title="Animación 3: controles del sumador"></video>
+
+▶ [Animación 3: controles del sumador y señal a 1 kHz (MP4, 1080p60)](animaciones/m3_ControlesSumador.mp4)
+
+*Animación 3. Respuesta del ecualizador en los cuatro ajustes del sumador.*
+
+<video src="animaciones/m4_SenalTransitoria.mp4" poster="animaciones/m4_SenalTransitoria.png" controls loop muted playsinline width="100%" title="Animación 4: señal a 1 kHz"></video>
+
+*Simulación transitoria: la salida es la suma invertida de las tres ramas.*
+
+Para volver a generar las animaciones:
+
+```bash
+python -m manim -qh animaciones_manim.py BarridoBandas CorreccionGraves ControlesSumador SenalTransitoria
+```

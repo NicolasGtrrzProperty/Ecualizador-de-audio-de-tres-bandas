@@ -1,0 +1,53 @@
+* Qucs 26.1.1  C:/Users/Nico/Desktop/01. Provisorio/00. Trabajos universidad/Ecualizador_QucsS_V3/01_original.sch
+.INCLUDE "C:/Program Files/Qucs-S/share/qucs-s/xspice_cmlib/include/ngspice_mathfunc.inc"
+VIN entrada 0 DC 0 SIN(0 1 1K 0 0 0) AC 1 ACPHASE 0
+B_OP_PRE pre 0 V = 1E6*V(entrada,_net0)*u(15-1E6*V(entrada,_net0))*u(1E6*V(entrada,_net0)-(-15))+15*u(1E6*V(entrada,_net0)-15)+(-15)*u((-15)-1E6*V(entrada,_net0))
+RF_PRE _net0 pre  500 tc1=0.0 tc2=0.0 
+RG_PRE 0 _net0  330 tc1=0.0 tc2=0.0 
+R_B pre _net1  270 tc1=0.0 tc2=0.0 
+C_B 0 _net1  1U 
+B_OP_B graves 0 V = 1E6*V(_net1,_net2)*u(15-1E6*V(_net1,_net2))*u(1E6*V(_net1,_net2)-(-15))+15*u(1E6*V(_net1,_net2)-15)+(-15)*u((-15)-1E6*V(_net1,_net2))
+RF_B _net2 graves  100 tc1=0.0 tc2=0.0 
+RG_B 0 _net2  1MEG tc1=0.0 tc2=0.0 
+C_M1 pre _net3  2U 
+R_M1 0 _net3  150 tc1=0.0 tc2=0.0 
+B_OP_M1 medio_alto 0 V = 1E6*V(_net3,_net4)*u(15-1E6*V(_net3,_net4))*u(1E6*V(_net3,_net4)-(-15))+15*u(1E6*V(_net3,_net4)-15)+(-15)*u((-15)-1E6*V(_net3,_net4))
+RF_M1 _net4 medio_alto  100 tc1=0.0 tc2=0.0 
+RG_M1 0 _net4  1MEG tc1=0.0 tc2=0.0 
+R_M2 medio_alto _net5  18 tc1=0.0 tc2=0.0 
+C_M2 0 _net5  2U 
+B_OP_M2 medios 0 V = 1E6*V(_net5,_net6)*u(15-1E6*V(_net5,_net6))*u(1E6*V(_net5,_net6)-(-15))+15*u(1E6*V(_net5,_net6)-15)+(-15)*u((-15)-1E6*V(_net5,_net6))
+RF_M2 _net6 medios  100 tc1=0.0 tc2=0.0 
+RG_M2 0 _net6  1MEG tc1=0.0 tc2=0.0 
+C_A pre _net7  1U 
+R_A 0 _net7  33 tc1=0.0 tc2=0.0 
+B_OP_A agudos 0 V = 1E6*V(_net7,_net8)*u(15-1E6*V(_net7,_net8))*u(1E6*V(_net7,_net8)-(-15))+15*u(1E6*V(_net7,_net8)-15)+(-15)*u((-15)-1E6*V(_net7,_net8))
+RF_A _net8 agudos  100 tc1=0.0 tc2=0.0 
+RG_A 0 _net8  1MEG tc1=0.0 tc2=0.0 
+R_SB graves _net9  10K tc1=0.0 tc2=0.0 
+R_SM medios _net9  10K tc1=0.0 tc2=0.0 
+R_SA agudos _net9  10K tc1=0.0 tc2=0.0 
+B_OP_S salida 0 V = 1E6*V(0,_net9)*u(15-1E6*V(0,_net9))*u(1E6*V(0,_net9)-(-15))+15*u(1E6*V(0,_net9)-15)+(-15)*u((-15)-1E6*V(0,_net9))
+RF_S _net9 salida  10K tc1=0.0 tc2=0.0 
+
+.control
+
+ac dec 100 10 100k 
+set wr_singlescale
+set wr_vecnames
+option numdgt=12
+wrdata 01_original_ac1.txt v(agudos) v(entrada) v(graves) v(medio_alto) v(medios) v(pre) v(salida)
+destroy all
+reset
+
+tran 1e-05 0.01 0 
+set wr_singlescale
+set wr_vecnames
+option numdgt=12
+wrdata 01_original_tr1.txt v(agudos) v(entrada) v(graves) v(medio_alto) v(medios) v(pre) v(salida)
+destroy all
+reset
+
+exit
+.endc
+.END
