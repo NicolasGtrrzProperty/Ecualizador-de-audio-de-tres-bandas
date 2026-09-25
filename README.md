@@ -187,6 +187,6 @@ for nombre, r, c, meta in LIMITES:
 Límite              Meta    Original    Ajustado         E96   (Hz, analítico)
 Graves               300      589,46      300,01      296,93
 Medios inferior      500      530,52      500,02      503,65
-Medios superior     4000    4 420,97    4 000,88    3 978,87
-Agudos              5000    4 822,88    5 000,16    5 036,55
+Medios superior    4.000    4.420,97    4.000,88    3.978,87
+Agudos             5.000    4.822,88    5.000,16    5.036,55
 ```
