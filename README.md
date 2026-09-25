@@ -117,3 +117,37 @@ mostrar(fig, "c01_ecualizador_completo", dpi=120)
 *Figura 1. Esquema Qucs-S completo con los valores ajustados de los bloques de simulación AC (10 Hz–100 kHz, 401 puntos) y transitoria (10 ms).*
 
 La salida del preamplificador, alimenta un bus común a las tres ramas. Cada red RC excita la entrada no inversora de un amplificador operacional con $R_G=1\,\mathrm{M}\Omega$ y $R_F=100\,\Omega$ ($K\approx1{,}0001$), que la aísla de la carga. Las salidas llegan al nodo de suma del inversor a través de $R_{SB}$, $R_{SM}$ y $R_{SA}$, que son los controles de banda.
+
+### Etapas ampliadas
+
+La misma función recorta el esquema completo por regiones. Las figuras 2 a 6 no son dibujos independientes: salen del mismo archivo `02_ajustado.sch`.
+
+**Entrada [3]:**
+
+```python
+etapas = {
+    "preamplificador": "Preamplificador no inversor · K = 1 + 500/330",
+    "graves": "Graves · pasa bajos RC + buffer",
+    "medios": "Medios · pasa altos (500 Hz) y pasa bajos (4 kHz) en cascada",
+    "agudos": "Agudos · pasa altos RC + buffer",
+    "sumador": "Sumador inversor · controles de banda",
+}
+for i, (clave, titulo) in enumerate(etapas.items(), start=2):
+    fig = q.dibujar_sch(CARPETA / "02_ajustado.sch", vista=q.VISTAS[clave],
+                        escala=1.35, titulo=titulo, simulaciones=False)
+    mostrar(fig, f"c{i:02d}_{clave}", dpi=110)
+```
+
+**Salida [3]:**
+
+![preamplificador](Trabajo_de_Electronicos_V3_assets/c02_preamplificador.png)
+
+![graves](Trabajo_de_Electronicos_V3_assets/c03_graves.png)
+
+![medios](Trabajo_de_Electronicos_V3_assets/c04_medios.png)
+
+![agudos](Trabajo_de_Electronicos_V3_assets/c05_agudos.png)
+
+![sumador](Trabajo_de_Electronicos_V3_assets/c06_sumador.png)
+
+*Figuras 2 a 6. Preamplificador, rama de graves, rama de medios, rama de agudos y sumador inversor, en ese orden.*
