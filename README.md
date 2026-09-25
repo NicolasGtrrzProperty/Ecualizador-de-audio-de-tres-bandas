@@ -453,6 +453,8 @@ Los resultados de Ngspice se animaron con [Manim Community](https://www.manim.co
 | 3 | `ControlesSumador` | La respuesta total cambia entre los cuatro ajustes, con barras que muestran el peso $10\,\mathrm{k}\Omega/R_i$ de cada banda. | 20 s |
 | 4 | `SenalTransitoria` | Un seno de 1 kHz recorre las etapas: entrada, preamplificador, tres ramas y salida invertida. | 14 s |
 
+<video src="animaciones/m1_BarridoBandas.mp4" poster="animaciones/m1_BarridoBandas.png" controls loop muted playsinline width="100%" title="Animación 1: barrido de frecuencia"></video>
+
 ▶ [Animación 1: barrido de frecuencia (MP4, 1080p60)](animaciones/m1_BarridoBandas.mp4)
 
 *Animación 1. Barrido de frecuencia sobre las tres ramas.*
@@ -461,7 +463,7 @@ Los resultados de Ngspice se animaron con [Manim Community](https://www.manim.co
 
 ▶ [Animación 2: corrección del filtro de graves (MP4, 1080p60)](animaciones/m2_CorreccionGraves.mp4)
 
-*Animación 2. Desplazamiento del corte de graves al aumentar $R_B$.*
+*Animación 2. Desplazamiento del corte de graves al aumentar R_B.*
 
 <video src="animaciones/m3_ControlesSumador.mp4" poster="animaciones/m3_ControlesSumador.png" controls loop muted playsinline width="100%" title="Animación 3: controles del sumador"></video>
 
