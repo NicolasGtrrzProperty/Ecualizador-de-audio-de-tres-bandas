@@ -50,8 +50,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from IPython.display import Image, display
 
-CARPETA = Path("Ecualizador_QucsS_V3").resolve()
-RECURSOS = Path("Trabajo_de_Electronicos_V3_assets")
+CARPETA = Path("esquemas").resolve()
+RECURSOS = Path("recortes")
 RECURSOS.mkdir(exist_ok=True)
 sys.path.insert(0, str(CARPETA))
 import qucs as q
