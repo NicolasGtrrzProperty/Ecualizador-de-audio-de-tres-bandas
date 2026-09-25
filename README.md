@@ -261,3 +261,33 @@ mostrar(fig, "g01_respuesta_ramas")
 *Figura 7. Respuesta AC de las tres ramas (Ngspice). Las líneas verticales marcan los cuatro cortes simulados.*
 
 La banda media es ancha: su máximo, −1,0 dB cerca de 1,4 kHz, queda por debajo de 0 dB porque sus dos etapas ya atenúan un poco en el centro. Graves y medios se cruzan en 380 Hz a −4,2 dB, y medios y agudos en 4,4 kHz a −3,5 dB.
+
+## Corrección del filtro de graves
+
+**Entrada [7]:**
+
+```python
+fig, ax = plt.subplots(figsize=(9, 4.4))
+for (nombre, clave), color in zip([("270 Ω (original)", "01_original"),
+                                   ("530,5 Ω (ajustado)", "02_ajustado"),
+                                   ("536 Ω (E96)", "03_comercial_E96")], SERIES):
+    b = sim[clave]["ac"]
+    ax.semilogx(b["frequency"], db(b["graves"] / b["pre"]), color=color, label=nombre)
+ax.axhline(-3, color=TINTA_2, lw=1, ls=(0, (4, 3)))
+ax.axvline(300, color=TINTA_2, lw=1, ls=(0, (1, 2)))
+ax.annotate(f"{es(tabla['Original'][0], 1)} Hz", (tabla["Original"][0], -3), (1500, -1.2),
+            arrowprops=dict(arrowstyle="-", color=TINTA_2, lw=0.8), fontsize=9, color=TINTA)
+ax.annotate(f"{es(tabla['Ajustado'][0], 1)} Hz", (tabla["Ajustado"][0], -3), (60, -9),
+            arrowprops=dict(arrowstyle="-", color=TINTA_2, lw=0.8), fontsize=9, color=TINTA)
+ax.text(310, -24, "meta 300 Hz", color=TINTA_2, fontsize=9)
+ax.set(xlim=(10, 1e5), ylim=(-30, 2), xlabel="Frecuencia (Hz)", ylabel="Ganancia (dB)",
+       title="Filtro de graves con C = 1 µF")
+ax.legend(loc="lower left")
+mostrar(fig, "g02_correccion_graves")
+```
+
+**Salida [7]:**
+
+![correccion graves](recortes/g02_correccion_graves.png)
+
+*Figura 8. Con 270 Ω el corte está en 589,6 Hz. Las curvas de 530,5 Ω y 536 Ω casi se superponen, porque sus cortes difieren sólo en 1 %.*
