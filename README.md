@@ -35,11 +35,52 @@ Se diseño un ecualizador activo que comprende señales con frecuencias de **300
 
 ## Configuración de circuitos
 
-El módulo reúne tres tareas que el notebook utiliza en orden:
+Emplea tres pasos en orden:
 
-1. Generar esquemas editables de Qucs-S (.sch) con una disposición limpia.
-2. Dibujar esos mismos archivos .sch con matplotlib, imitando el estilo de Qucs-S.
-3. Simularlos con el netlister de Qucs-S y Ngspice, y leer los resultados.
+1. Generar esquemas editables de Qucs-S (.sch) y dibujarlos con matplotlib.
+2. Simularlos con el netlister de Qucs-S y Ngspice.
+3. Leer los resultados.
 
-Los dibujos se construyen leyendo el archivo .sch generado; así, la figura y la
-simulación proceden exactamente del mismo circuito.
+La figura y la simulación proceden exactamente del mismo circuito.
+
+```python
+import sys, warnings
+from pathlib import Path
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import Image, display
+
+CARPETA = Path("Ecualizador_QucsS_V3").resolve()
+RECURSOS = Path("Trabajo_de_Electronicos_V3_assets")
+RECURSOS.mkdir(exist_ok=True)
+sys.path.insert(0, str(CARPETA))
+import qucs_v3 as q
+
+warnings.filterwarnings("ignore", category=UserWarning)
+# Paleta categórica en orden fijo: azul, naranja, aqua, amarillo.
+SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]
+TINTA, TINTA_2, REJILLA = "#0b0b0b", "#52514e", "#e4e3df"
+plt.rcParams.update({
+    "figure.facecolor": "#fcfcfb", "axes.facecolor": "#fcfcfb",
+    "axes.edgecolor": "#b9b8b3", "axes.labelcolor": TINTA_2,
+    "xtick.color": TINTA_2, "ytick.color": TINTA_2, "axes.grid": True,
+    "grid.color": REJILLA, "grid.linewidth": 0.8, "lines.linewidth": 2,
+    "axes.spines.top": False, "axes.spines.right": False,
+    "font.size": 10, "axes.titlesize": 12, "axes.titleweight": "bold",
+    "axes.titlelocation": "left", "legend.frameon": False,
+})
+
+def mostrar(fig, nombre, dpi=130):
+    ruta = RECURSOS / f"{nombre}.png"
+    fig.savefig(ruta, dpi=dpi, bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.close(fig)
+    display(Image(filename=str(ruta)), metadata={"archivo": ruta.as_posix()})
+
+def es(x, dec=2):
+    # Formato numérico español: coma decimal y espacio de miles.
+    texto = f"{x:,.{dec}f}".replace(",", " ").replace(".", ",")
+    return texto
+
+print("Qucs-S :", q.QUCS.exists(), "·", q.QUCS)
+print("Ngspice:", q.NGSPICE.exists(), "·", q.NGSPICE)
+```
