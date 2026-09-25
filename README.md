@@ -432,8 +432,8 @@ mostrar(fig, "g05_montecarlo")
 Límite             nominal        P5       P95   (Hz)
 Graves                 297       284       311
 Medios inferior        504       482       528
-Medios superior      3.979     3.803     4 169
-Agudos               5.037     4.819     5 281
+Medios superior      3.979     3.803     4.169
+Agudos               5.037     4.819     5.281
 ```
 
 ![montecarlo](recortes/g05_montecarlo.png)
@@ -441,3 +441,14 @@ Agudos               5.037     4.819     5 281
 *Figura 11. Distribución de los cortes en circuitos simulados. La línea naranja marca la meta.*
 
 En cada filtro, el 90 % de los circuitos queda entre −5,3 % y +5,6 % de la meta. La tolerancia de los condensadores domina la dispersión: pasar a condensadores de ±1 % tendría más efecto que afinar las resistencias.
+
+## Animaciones con Manim
+
+Los resultados de Ngspice se animaron con [Manim Community](https://www.manim.community/) 0.21 en el script [`animaciones_manim.py`](Ecualizador_QucsS_V3/animaciones_manim.py). Cada escena lee los archivos de texto de `simulaciones/`; sólo el barrido continuo de $R_B$ de la animación 2 usa la función de transferencia analítica, que coincide con los modelos con Ngspice. Los vídeos están en 1080p a 60 fps y se reproducen dentro del informe. Debajo de cada uno hay un enlace directo al archivo MP4.
+
+| # | Escena | Qué muestra | Duración |
+|---|---|---|---: |
+| 1 | `BarridoBandas` | Un cursor recorre de 10 Hz a 100 kHz y lee la ganancia de cada rama y de la salida; al final marca los cuatro cortes. | 24 s |
+| 2 | `CorreccionGraves` | $R_B$ crece de 270 Ω a 530,5 Ω y el corte baja de 589,6 Hz a 300 Hz; se superponen las curvas de Ngspice, incluida la E96. | 17 s |
+| 3 | `ControlesSumador` | La respuesta total cambia entre los cuatro ajustes, con barras que muestran el peso $10\,\mathrm{k}\Omega/R_i$ de cada banda. | 20 s |
+| 4 | `SenalTransitoria` | Un seno de 1 kHz recorre las etapas: entrada, preamplificador, tres ramas y salida invertida. | 14 s |
