@@ -458,7 +458,7 @@ Los resultados de Ngspice se animaron con [Manim Community](https://www.manim.co
 
 ▶ [Animación 1: barrido de frecuencia (MP4, 1080p60)](animaciones/m1_BarridoBandas.mp4)
 
-*Animación 1. Barrido de frecuencia sobre las tres ramas.*
+*Animación 1. Barrido de frecuencia sobre las tres ramas.* [![Ver animación 1](animaciones/m1_BarridoBandas.png)](animaciones/m1_BarridoBandas.mp4)
 
 <video src="animaciones/m2_CorreccionGraves.mp4" poster="animaciones/m2_CorreccionGraves.png" controls loop muted playsinline width="100%" title="Animación 2: corrección del filtro de graves"></video>
 
