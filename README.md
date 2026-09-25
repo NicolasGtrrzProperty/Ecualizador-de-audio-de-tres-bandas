@@ -400,7 +400,7 @@ La diferencia no supera 0,0001 dB en todo el barrido ni en ninguna de las seis v
 
 ## Tolerancias: análisis de Monte Carlo
 
-Los componentes reales se desvían de su valor nominal. Se sortean 5.000 circuitos con las resistencias E96 (±1 %) y condensadores de ±5 %, con distribución uniforme, y se calcula el corte de cada filtro.
+Los componentes reales se desvían de su valor nominal. Se sortean circuitos con las resistencias E96 (±1 %) y condensadores de ±5 %, con distribución uniforme, y se calcula el corte de cada filtro.
 
 **Entrada [11]:**
 
@@ -432,12 +432,12 @@ mostrar(fig, "g05_montecarlo")
 Límite             nominal        P5       P95   (Hz)
 Graves                 297       284       311
 Medios inferior        504       482       528
-Medios superior      3 979     3 803     4 169
-Agudos               5 037     4 819     5 281
+Medios superior      3.979     3.803     4 169
+Agudos               5.037     4.819     5 281
 ```
 
 ![montecarlo](recortes/g05_montecarlo.png)
 
-*Figura 11. Distribución de los cortes en 5 000 circuitos simulados. La línea naranja marca la meta.*
+*Figura 11. Distribución de los cortes en circuitos simulados. La línea naranja marca la meta.*
 
 En cada filtro, el 90 % de los circuitos queda entre −5,3 % y +5,6 % de la meta. La tolerancia de los condensadores domina la dispersión: pasar a condensadores de ±1 % tendría más efecto que afinar las resistencias.
